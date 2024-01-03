@@ -8,7 +8,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     /*---------- variable initialization ----------*/
     m_isSerialSendChecked = false;
-    m_isSerialRevChecked = false;
     /*---------- Qt3D configurations ----------*/
     //创建3d窗口
     Qt3DExtras::Qt3DWindow *view = new Qt3DExtras::Qt3DWindow();
@@ -47,7 +46,6 @@ MainWindow::MainWindow(QWidget *parent)
     m_spConfigWindow = new SerialPortConfigurationWindow();
     /*---------- Timer Initialization ----------*/
     m_serialSendTimer = new QTimer(this);
-    m_serialRevTimer = new QTimer(this);
 
     /*---------- connect signals and slots ----------*/
     QObject::connect(ui->horizontalSlider1, &QSlider::valueChanged, m_armEntity, &ArmEntity::onSlider1ValueChanged);
@@ -56,7 +54,6 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->horizontalSlider4, &QSlider::valueChanged, m_armEntity, &ArmEntity::onSlider4ValueChanged);
     QObject::connect(ui->horizontalSlider5, &QSlider::valueChanged, m_armEntity, &ArmEntity::onSlider5ValueChanged);
     QObject::connect(m_serialSendTimer, &QTimer::timeout, this, &MainWindow::serialSendData);
-    QObject::connect(m_serialRevTimer, &QTimer::timeout, this, &MainWindow::serialRevData);
 
     //qDebug() << "sizeof unsigned short" << sizeof(unsigned short);
 
@@ -87,12 +84,6 @@ void MainWindow::on_serialSendCheckBox_stateChanged(int checked)
             QMessageBox::warning(this,tr("错误"),tr("未开启串口,请先开启串口"),QMessageBox::Ok);
             return;
         }
-        //两个checkbox同时选中,报错
-        if(m_isSerialSendChecked && m_isSerialRevChecked)
-        {
-            QMessageBox::warning(this,tr("错误"),tr("发送和接收不能同时勾选"),QMessageBox::Ok);
-            return;
-        }
         //没有错误,正常运行
         else
         {
@@ -109,38 +100,6 @@ void MainWindow::on_serialSendCheckBox_stateChanged(int checked)
 
 }
 
-//接收checkBox槽函数,使能时通过串口定时接收每个关节的角度数据
-void MainWindow::on_serialRevCheckBox_stateChanged(int checked)
-{
-    m_isSerialRevChecked = checked;
-    //select current checkbox
-    if(m_isSerialRevChecked)
-    {
-        //串口未开启,报错
-        if(!m_spConfigWindow->getSerialIsOpen())
-        {
-            QMessageBox::warning(this,tr("错误"),tr("未开启串口,请先开启串口"),QMessageBox::Ok);
-            return;
-        }
-        //两个checkbox同时选中,报错
-        if(m_isSerialSendChecked && m_isSerialRevChecked)
-        {
-            QMessageBox::warning(this,tr("错误"),tr("发送和接收不能同时勾选"),QMessageBox::Ok);
-            return;
-        }
-        //没有错误,正常运行
-        else
-        {
-            m_serialRevTimer->start(100);
-        }
-    }
-    //unselect
-    else
-    {
-        m_serialRevTimer->stop();
-    }
-}
-
 void MainWindow::serialSendData()
 {
     // debug info
@@ -152,14 +111,14 @@ void MainWindow::serialSendData()
     m_spConfigWindow->serialSendFrame();
 }
 
-void MainWindow::serialRevData()
-{
-    //debug info
-    qDebug() <<"";
-    qDebug() << "timeout slot serialRevData";
-    //receive 1 frame of data and update joint angles
-    m_spConfigWindow->serialRevFrame();
-    QList<float> jointAngles = m_spConfigWindow->getJointAngles();
-    qDebug() << "receive joint angles" << jointAngles;
-}
+//void MainWindow::serialRevData()
+//{
+//    //debug info
+//    qDebug() <<"";
+//    qDebug() << "timeout slot serialRevData";
+//    //receive 1 frame of data and update joint angles
+//    m_spConfigWindow->serialRevFrame();
+//    QList<float> jointAngles = m_spConfigWindow->getJointAngles();
+//    qDebug() << "receive joint angles" << jointAngles;
+//}
 
