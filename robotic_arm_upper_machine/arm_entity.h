@@ -23,6 +23,7 @@ public slots:
     void onSlider3ValueChanged(int value);
     void onSlider4ValueChanged(int value);
     void onSlider5ValueChanged(int value);
+    void onSlider6ValueChanged(int value);
 
 private:
     void initEntities();
@@ -49,6 +50,7 @@ private:
     float m_joint3Angle;
     float m_joint4Angle;
     float m_joint5Angle;
+    float m_joint6Angle;
     QList<float> m_jointAngles;
 
 };

@@ -10,7 +10,7 @@ SerialPortConfigurationWindow::SerialPortConfigurationWindow(QWidget *parent) :
     /*---------- initialize joint angles list ----------*/
     m_jointAngles.clear();
     // first append, then you can acess corresponding indices
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < 6; i++)
     {
         m_jointAngles.append(0);
     }
@@ -39,7 +39,7 @@ QList<float> SerialPortConfigurationWindow::getJointAngles()
 // send data of 1 frame via serial port
 void SerialPortConfigurationWindow::serialSendFrame()
 {
-    m_sendFrame.resize(14); //长为14字节
+    m_sendFrame.resize(16); //长为16字节
     m_sendFrame[0] = 0xA8; //帧头
     QByteArray frameData = encodeJointAngles(); //得到数据
     // 将数据放入数据帧中指定位置
@@ -50,27 +50,27 @@ void SerialPortConfigurationWindow::serialSendFrame()
     // 计算crc校验位
     unsigned short crc = calCrc(frameData);
     // 校验位放入数据帧中
-    m_sendFrame[11] = crc & 0xFF; //低8位
-    m_sendFrame[12] = (crc >> 8) & 0xFF; //高8位
+    m_sendFrame[13] = crc & 0xFF; //低8位
+    m_sendFrame[14] = (crc >> 8) & 0xFF; //高8位
     // 帧尾
-    m_sendFrame[13] = 0xFE;
+    m_sendFrame[15] = 0xFE;
     // 调试信息
     qDebug() << "send bytes" << m_sendFrame;
     // 发送数据
     m_serial->write(m_sendFrame);
 }
 
-void SerialPortConfigurationWindow::serialRevFrame()
-{
-    // 串口接收数据
-    m_revFrame.resize(14);
-    // 测试解码,先用发送的
-    m_revFrame = m_sendFrame;
-    // 调试信息
-    qDebug() << "receive bytes" << m_revFrame;
-    // 解码数据
-    decodeJointAngles();
-}
+//void SerialPortConfigurationWindow::serialRevFrame()
+//{
+//    // 串口接收数据
+//    m_revFrame.resize(14);
+//    // 测试解码,先用发送的
+//    m_revFrame = m_sendFrame;
+//    // 调试信息
+//    qDebug() << "receive bytes" << m_revFrame;
+//    // 解码数据
+//    decodeJointAngles();
+//}
 
 void SerialPortConfigurationWindow::serialPortInit()
 {
@@ -114,12 +114,12 @@ void SerialPortConfigurationWindow::refreshSerialPort(int index)
         m_serial->setPortName(ui->portComboBox->currentText());             //设置串口号
     }
 }
-// 将关节角度进行编码,转换成放入数据帧中的10个字节
+// 将关节角度进行编码,转换成放入数据帧中的12个字节
 QByteArray SerialPortConfigurationWindow::encodeJointAngles()
 {
     QByteArray frameData;
-    frameData.resize(10); //数据帧中数据长度为10个字节
-    for(int i = 0; i < 5; i++)
+    frameData.resize(12); //数据帧中数据长度为12个字节
+    for(int i = 0; i < 6; i++)
     {
         // 将浮点的角度乘以100后转换为int
         unsigned int angle = (unsigned int)(m_jointAngles[i]);
@@ -134,14 +134,14 @@ QByteArray SerialPortConfigurationWindow::encodeJointAngles()
 void SerialPortConfigurationWindow::decodeJointAngles()
 {
     QByteArray frameData;
-    frameData.resize(10);
+    frameData.resize(12);
     // 从接收到的数据帧中提取数据
     for(int i = 0; i < frameData.size(); i++)
     {
         frameData[i] = m_revFrame[1+i];
     }
     // 解码得关节角度
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < 6; i++)
     {
         unsigned int angle = frameData[i*2] + (frameData[i*2+1] << 8);
         float jointAngle = (float)angle;

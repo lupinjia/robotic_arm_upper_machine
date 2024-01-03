@@ -23,7 +23,7 @@ public:
     void setJointAngles(QList<float> jointAngles);
     QList<float> getJointAngles();
     void serialSendFrame();
-    void serialRevFrame();
+    //void serialRevFrame();
 
 private slots:
     void on_closeWindowButton_clicked();

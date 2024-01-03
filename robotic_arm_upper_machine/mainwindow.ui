@@ -24,7 +24,7 @@
           <item>
            <widget class="QLabel" name="label">
             <property name="text">
-             <string>Joint 1</string>
+             <string>Base</string>
             </property>
            </widget>
           </item>
@@ -70,7 +70,7 @@
           <item>
            <widget class="QLabel" name="label_2">
             <property name="text">
-             <string>Joint 2</string>
+             <string>Shoulder</string>
             </property>
            </widget>
           </item>
@@ -116,7 +116,7 @@
           <item>
            <widget class="QLabel" name="label_3">
             <property name="text">
-             <string>Joint 3</string>
+             <string>Elbow</string>
             </property>
            </widget>
           </item>
@@ -162,7 +162,7 @@
           <item>
            <widget class="QLabel" name="label_4">
             <property name="text">
-             <string>Joint 4</string>
+             <string>Wrist1</string>
             </property>
            </widget>
           </item>
@@ -208,7 +208,7 @@
           <item>
            <widget class="QLabel" name="label_5">
             <property name="text">
-             <string>Joint 5</string>
+             <string>Wrist2</string>
             </property>
            </widget>
           </item>
@@ -248,6 +248,24 @@
            </size>
           </property>
          </spacer>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_7">
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>Gripper</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="horizontalSlider6">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">

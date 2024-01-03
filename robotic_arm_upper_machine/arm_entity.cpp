@@ -11,7 +11,7 @@ ArmEntity::ArmEntity(Qt3DCore::QEntity* rootEntity, QObject *parent)
     /*---------- initialize joint angles list ----------*/
     m_jointAngles.clear();
     // first append, then you can acess corresponding indices
-    for(int i = 0; i < 5; i++)
+    for(int i = 0; i < 6; i++)
     {
         m_jointAngles.append(0);
     }
@@ -26,22 +26,24 @@ ArmEntity::~ArmEntity()
 
 QList<float> ArmEntity::getJointAngles()
 {
-    //获得当前各关节角度
+    //get current joint angles(except gripper joint)
     m_joint1Angle = m_link1Transform->rotationZ() - m_initialRotationZ.at(0);
     m_joint2Angle = m_link2Transform->rotationZ() - m_initialRotationZ.at(1);
     m_joint3Angle = m_link3Transform->rotationZ() - m_initialRotationZ.at(2);
     m_joint4Angle = -(m_link4Transform->rotationZ() - m_initialRotationZ.at(3));
     m_joint5Angle = m_link5Transform->rotationZ() - m_initialRotationZ.at(4);
-    //将关节角度添加到列表中
+    //update joint angles in list
     m_jointAngles.replace(0, m_joint1Angle);
     m_jointAngles.replace(1, m_joint2Angle);
     m_jointAngles.replace(2, m_joint3Angle);
     m_jointAngles.replace(3, m_joint4Angle);
     m_jointAngles.replace(4, m_joint5Angle);
+    m_jointAngles.replace(5, m_joint6Angle);
 
     return m_jointAngles;
 }
 
+// use float for compatibility
 void ArmEntity::onSlider1ValueChanged(int value)
 {
     float angleDeg = value;// convert to deg joint angle, [0,90]
@@ -75,6 +77,12 @@ void ArmEntity::onSlider5ValueChanged(int value)
     float angleDeg = value;// convert to deg joint angle, [0,90]
     float targetAng = m_initialRotationZ.at(4) + angleDeg;
     m_link5Transform->setRotationZ(targetAng);
+}
+
+// gripper is different from others
+void ArmEntity::onSlider6ValueChanged(int value)
+{
+    m_joint6Angle = (float)value;
 }
 
 
