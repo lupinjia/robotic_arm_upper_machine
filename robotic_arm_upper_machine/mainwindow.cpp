@@ -53,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(ui->horizontalSlider3, &QSlider::valueChanged, m_armEntity, &ArmEntity::onSlider3ValueChanged);
     QObject::connect(ui->horizontalSlider4, &QSlider::valueChanged, m_armEntity, &ArmEntity::onSlider4ValueChanged);
     QObject::connect(ui->horizontalSlider5, &QSlider::valueChanged, m_armEntity, &ArmEntity::onSlider5ValueChanged);
+    QObject::connect(ui->horizontalSlider6, &QSlider::valueChanged, m_armEntity, &ArmEntity::onSlider6ValueChanged);
     QObject::connect(m_serialSendTimer, &QTimer::timeout, this, &MainWindow::serialSendData);
 
     //qDebug() << "sizeof unsigned short" << sizeof(unsigned short);

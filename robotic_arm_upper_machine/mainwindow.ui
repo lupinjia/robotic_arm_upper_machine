@@ -260,6 +260,9 @@
           </item>
           <item>
            <widget class="QSlider" name="horizontalSlider6">
+            <property name="maximum">
+             <number>90</number>
+            </property>
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
@@ -304,7 +307,7 @@
      <x>0</x>
      <y>0</y>
      <width>874</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

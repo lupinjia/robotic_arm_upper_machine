@@ -29,8 +29,6 @@ private slots:
     void serialSendData();
     //void serialRevData();
 
-    void on_horizontalSlider6_valueChanged(int value);
-
 private:
     Ui::MainWindow *ui;
     SerialPortConfigurationWindow* m_spConfigWindow;
