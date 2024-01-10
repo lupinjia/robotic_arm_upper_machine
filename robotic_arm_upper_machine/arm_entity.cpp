@@ -92,7 +92,8 @@ void ArmEntity::initEntities()
     /*---------- link0 ----------*/
     // mesh
     Qt3DRender::QMesh* link0Mesh = new Qt3DRender::QMesh();
-    QUrl data = QUrl::fromLocalFile("D:/develop/qt/projects/robotic_arm_upper_machine/robotic_arm_upper_machine/mesh/link0.STL");
+    // url needs to be modified
+    QUrl data = QUrl::fromLocalFile("D:/develop/projects/robotic_arm_upper_machine/robotic_arm_upper_machine/mesh/link0.STL");
     link0Mesh->setSource(data);
     // transform
     m_link0Transform = new Qt3DCore::QTransform();
@@ -111,7 +112,7 @@ void ArmEntity::initEntities()
     /*---------- link1 ----------*/
     // mesh
     Qt3DRender::QMesh* link1Mesh = new Qt3DRender::QMesh();
-    data = QUrl::fromLocalFile("D:/develop/qt/projects/robotic_arm_upper_machine/robotic_arm_upper_machine/mesh/link1.STL");
+    data = QUrl::fromLocalFile("D:/develop/projects/robotic_arm_upper_machine/robotic_arm_upper_machine/mesh/link1.STL");
     link1Mesh->setSource(data);
     // transform
     m_link1Transform = new Qt3DCore::QTransform();
@@ -129,7 +130,7 @@ void ArmEntity::initEntities()
     /*---------- link2 ----------*/
     // mesh
     Qt3DRender::QMesh* link2Mesh = new Qt3DRender::QMesh();
-    data = QUrl::fromLocalFile("D:/develop/qt/projects/robotic_arm_upper_machine/robotic_arm_upper_machine/mesh/link2.STL");
+    data = QUrl::fromLocalFile("D:/develop/projects/robotic_arm_upper_machine/robotic_arm_upper_machine/mesh/link2.STL");
     link2Mesh->setSource(data);
     // transform
     m_link2Transform = new Qt3DCore::QTransform();
@@ -148,7 +149,7 @@ void ArmEntity::initEntities()
     /*---------- link3 ----------*/
     // mesh
     Qt3DRender::QMesh* link3Mesh = new Qt3DRender::QMesh();
-    data = QUrl::fromLocalFile("D:/develop/qt/projects/robotic_arm_upper_machine/robotic_arm_upper_machine/mesh/link3.STL");
+    data = QUrl::fromLocalFile("D:/develop/projects/robotic_arm_upper_machine/robotic_arm_upper_machine/mesh/link3.STL");
     link3Mesh->setSource(data);
     // transform
     m_link3Transform = new Qt3DCore::QTransform();
@@ -169,7 +170,7 @@ void ArmEntity::initEntities()
     /*---------- link4 ----------*/
     // mesh
     Qt3DRender::QMesh* link4Mesh = new Qt3DRender::QMesh();
-    data = QUrl::fromLocalFile("D:/develop/qt/projects/robotic_arm_upper_machine/robotic_arm_upper_machine/mesh/link4.STL");
+    data = QUrl::fromLocalFile("D:/develop/projects/robotic_arm_upper_machine/robotic_arm_upper_machine/mesh/link4.STL");
     link4Mesh->setSource(data);
     // transform
     m_link4Transform = new Qt3DCore::QTransform();
@@ -188,7 +189,7 @@ void ArmEntity::initEntities()
     /*---------- link5 ----------*/
     // mesh
     Qt3DRender::QMesh* link5Mesh = new Qt3DRender::QMesh();
-    data = QUrl::fromLocalFile("D:/develop/qt/projects/robotic_arm_upper_machine/robotic_arm_upper_machine/mesh/link5.STL");
+    data = QUrl::fromLocalFile("D:/develop/projects/robotic_arm_upper_machine/robotic_arm_upper_machine/mesh/link5.STL");
     link5Mesh->setSource(data);
     // transform
     m_link5Transform = new Qt3DCore::QTransform();
