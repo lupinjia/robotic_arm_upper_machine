@@ -135,7 +135,7 @@ void ArmEntity::initEntities()
     m_link2Transform = new Qt3DCore::QTransform();
     m_link2Transform->setScale(1.0f);
     m_link2Transform->setRotationX(-90.0);
-    m_link2Transform->setRotationZ(-16.0); // joint2往下转是负的方向,往上转是正方向 [-10,90]
+    m_link2Transform->setRotationZ(24.0); // joint2往下转是负的方向,往上转是正方向 [-10,90]
     m_link2Transform->setTranslation(QVector3D(0, -0.0241400064300461, 0.043));
     // material
     Qt3DExtras::QPhongMaterial* link2Material = new Qt3DExtras::QPhongMaterial();
